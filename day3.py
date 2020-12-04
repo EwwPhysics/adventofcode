@@ -1,5 +1,5 @@
-with open('input3.txt') as fin:
-    puzzleinput = fin.read()
+with open('input2.txt') as fin:
+    raw = fin.read()
 
 
 def parse(data):
@@ -7,35 +7,29 @@ def parse(data):
     return x
 
 
-a = parse(puzzleinput)
+a = parse(raw)
 
 
-def part_1(L):
+def part_1(grid, h, v):
     num = 0
     count = 0
-    for i in range(len(L)):
-        num = num % 31
-        if L[i][num] == '#':
+    for i in range(0, len(grid), v):
+        num = num % len(grid[0])
+        if grid[i][num] == '#':
             count += 1
-        num += 3
+        num += h
     return count
 
 
-def part_2(L, a):
-    count = 0
-    num = 0
-    for i in range(len(L)):
-        num = num % 31
-        if L[i][num] == '#':
-            count += 1
-        num += a
-    return count
+print(part_1(a, 3, 1))
 
 
-def solution():
+def part_2(grid):
     result = 1
-    for i in range(1, 8, 2):
-        result *= part_2(a, i)
-    b = [x for i, x in enumerate(a) if i % 2 == 0]
-    result *= part_2(b, 1)
+    l = [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]]
+    for i, x in l:
+        result *= part_1(grid, i, x)
     return result
+
+
+print(part_2(a))
