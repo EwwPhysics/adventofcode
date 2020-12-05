@@ -12,9 +12,7 @@ a = parse(raw)
 
 
 def part_1(passes):
-    rows = [int(x[:7], 2) for x in passes]
-    columns = [int(x[-3:], 2) for x in passes]
-    seat = [(row * 8) + column for row, column in zip(rows, columns)]
+    seat = [(int(x[:7], 2) * 8) + int(x[-3:], 2) for x in passes]
     seat.sort()
     return seat
 
