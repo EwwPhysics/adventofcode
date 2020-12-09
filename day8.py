@@ -1,12 +1,9 @@
-import copy
-
-
-with open('input8.txt') as fin:
+with open('input2.txt') as fin:
     raw = fin.read()
 
 
 def parse(raw):
-    start = [[x[:3], int(x[4:])] for x in (raw.split('\n'))]
+    start = [(x[:3], int(x[4:])) for x in (raw.split('\n'))]
     return start
 
 
@@ -24,28 +21,25 @@ def part_1(arr):
         indices.add(i)
         if pair[0] == 'acc':
             acc += pair[1]
+            i += 1
         elif pair[0] == 'jmp':
-            i += (pair[1] - 1)
+            i += pair[1]
         else:
-            pass
-        i += 1
+            i += 1
     return acc
 
 
-def is_infinite(arr):
+def not_infinite(arr):
     indices = set()
     acc = 0
     i = 0
     while True:
         if i in indices:
-            return [True]
+            return 0
         indices.add(i)
-
         if i == len(arr):
-            return [False, acc]
-
+            return acc
         pair = arr[i]
-
         if pair[0] == 'acc':
             acc += pair[1]
             i += 1
@@ -58,19 +52,13 @@ def is_infinite(arr):
 def part_2(arr):
     for i, x in enumerate(arr):
         if x[0] == 'jmp':
-            test = copy.deepcopy(arr)
-            test[i][0] = 'nop'
-            if is_infinite(test)[0]:
-                pass
-            else:
-                return is_infinite(test)[1]
+            test = arr[:i] + [('nop', x[1])] + arr[i + 1:]
+            if c := not_infinite(test):
+                return c
         if x[0] == 'nop':
-            test = copy.deepcopy(arr)
-            test[i][0] = 'jmp'
-            if is_infinite(test)[0]:
-                pass
-            else:
-                return is_infinite(test)[1]
+            test = arr[:i] + [('jmp', x[1])] + arr[(i + 1):]
+            if c := not_infinite(test):
+                return c
 
 
 print(part_1(a))
