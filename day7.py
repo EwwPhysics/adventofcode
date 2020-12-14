@@ -1,4 +1,4 @@
-with open('input7.txt') as fin:
+with open('inputs/input7.txt') as fin:
     raw = fin.read()
 
 

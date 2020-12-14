@@ -1,4 +1,4 @@
-with open('input.txt') as fin:
+with open('inputs/input.txt') as fin:
     puzzleinput = fin.read()
 
 
