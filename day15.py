@@ -1,13 +1,5 @@
 with open('inputs/input15.txt') as fin:
-    raw = fin.read()
-
-
-def parse(raw):
-    a = [int(x) for x in raw.split(',')]
-    return a
-
-
-a = parse(raw)
+    a = [int(x) for x in (fin.read()).split(',')]
 
 
 def solve(data, number):
